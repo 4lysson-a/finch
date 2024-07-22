@@ -1,0 +1,2 @@
+# finch
+Personal finance control
