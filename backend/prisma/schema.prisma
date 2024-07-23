@@ -17,51 +17,62 @@ enum BankAccountEnumType {
   CHECKING
   INVESTMENT
   CASH
+
+  @@map(name: "bank_account_enum_type")
 }
+
 enum TransactionEnumType {
   CHECKING
   INVESTMENT
+
+  @@map(name: "transaction_enum_type")
 }
 
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String
-  password  String
+  id          String        @id @default(cuid()) @db.Uuid
+  email       String        @unique
+  name        String
+  password    String
+  BankAccount BankAccount[]
+  Transaction Transaction[]
+  Category    Category[]
 
   @@map(name: "users")
 }
 
 model BankAccount {
-  id        String   @id @default(cuid())
-  balance   Float
-  userId    String
-  initialBalance Float
-  type      BankAccountEnumType
-  color     String
+  id             String              @id @default(cuid()) @db.Uuid
+  balance        Float
+  userId         String              @map("user_id") @db.Uuid
+  user           User                @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  initialBalance Float               @map("initial_balance")
+  type           BankAccountEnumType
+  color          String
 
   @@map(name: "bank_accounts")
 }
 
 model Transaction {
-  id        String   @id @default(cuid())
-  userId    String
-  categoryId String
-  bankAccountId String
-  name      String
-  value     Float
-  date      DateTime
-  type      TransactionEnumType
+  id            String              @id @default(cuid()) @db.Uuid
+  userId        String              @map("user_id") @db.Uuid
+  user          User                @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  categoryId    String              @map("category_id") @db.Uuid
+  bankAccountId String              @map("bank_account_id") @db.Uuid
+  name          String
+  value         Float
+  date          DateTime
+  type          TransactionEnumType
 
   @@map(name: "transactions")
 }
 
 model Category {
-  id        String   @id @default(cuid())
-  userId    String
-  name      String
-  color     String
-  icon      String
+  id     String @id @default(cuid()) @db.Uuid
+  userId String @map("user_id") @db.Uuid
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  name   String
+  color  String
+  icon   String
 
   @@map(name: "categories")
 }
