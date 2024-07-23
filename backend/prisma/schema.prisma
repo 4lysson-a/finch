@@ -28,6 +28,8 @@ model User {
   email     String   @unique
   name      String
   password  String
+
+  @@map(name: "users")
 }
 
 model BankAccount {
@@ -37,6 +39,8 @@ model BankAccount {
   initialBalance Float
   type      BankAccountEnumType
   color     String
+
+  @@map(name: "bank_accounts")
 }
 
 model Transaction {
@@ -48,6 +52,8 @@ model Transaction {
   value     Float
   date      DateTime
   type      TransactionEnumType
+
+  @@map(name: "transactions")
 }
 
 model Category {
@@ -56,4 +62,6 @@ model Category {
   name      String
   color     String
   icon      String
+
+  @@map(name: "categories")
 }
