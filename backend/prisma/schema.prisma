@@ -12,3 +12,48 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum BankAccountEnumType {
+  CHECKING
+  INVESTMENT
+  CASH
+}
+enum TransactionEnumType {
+  CHECKING
+  INVESTMENT
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+}
+
+model BankAccount {
+  id        String   @id @default(cuid())
+  balance   Float
+  userId    String
+  initialBalance Float
+  type      BankAccountEnumType
+  color     String
+}
+
+model Transaction {
+  id        String   @id @default(cuid())
+  userId    String
+  categoryId String
+  bankAccountId String
+  name      String
+  value     Float
+  date      DateTime
+  type      TransactionEnumType
+}
+
+model Category {
+  id        String   @id @default(cuid())
+  userId    String
+  name      String
+  color     String
+  icon      String
+}
