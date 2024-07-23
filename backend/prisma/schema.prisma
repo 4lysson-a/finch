@@ -72,14 +72,13 @@ model Transaction {
 }
 
 model Category {
-  id     String              @id @default(cuid()) @db.Uuid
-  userId String              @map("user_id") @db.Uuid
-  name   String
-  color  String
-  icon   String
-  type   TransactionEnumType
-
-  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String              @id @default(cuid()) @db.Uuid
+  userId       String              @map("user_id") @db.Uuid
+  name         String
+  color        String
+  icon         String
+  type         TransactionEnumType
+  user         User                @relation(fields: [userId], references: [id], onDelete: Cascade)
   transactions Transaction[]
 
   @@map(name: "categories")
