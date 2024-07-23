@@ -29,13 +29,13 @@ enum TransactionEnumType {
 }
 
 model User {
-  id          String        @id @default(cuid()) @db.Uuid
-  email       String        @unique
-  name        String
-  password    String
-  BankAccount BankAccount[]
-  Transaction Transaction[]
-  Category    Category[]
+  id           String        @id @default(cuid()) @db.Uuid
+  email        String        @unique
+  name         String
+  password     String
+  bankAccounts BankAccount[]
+  transactions Transaction[]
+  categorys    Category[]
 
   @@map(name: "users")
 }
@@ -44,10 +44,12 @@ model BankAccount {
   id             String              @id @default(cuid()) @db.Uuid
   balance        Float
   userId         String              @map("user_id") @db.Uuid
-  user           User                @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   initialBalance Float               @map("initial_balance")
   type           BankAccountEnumType
   color          String
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
 
   @@map(name: "bank_accounts")
 }
@@ -55,24 +57,30 @@ model BankAccount {
 model Transaction {
   id            String              @id @default(cuid()) @db.Uuid
   userId        String              @map("user_id") @db.Uuid
-  user          User                @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  categoryId    String              @map("category_id") @db.Uuid
+  categoryId    String?             @map("category_id") @db.Uuid
   bankAccountId String              @map("bank_account_id") @db.Uuid
   name          String
   value         Float
   date          DateTime
   type          TransactionEnumType
 
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bankAccount BankAccount @relation(fields: [bankAccountId], references: [id], onDelete: Cascade)
+  category    Category?   @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
   @@map(name: "transactions")
 }
 
 model Category {
-  id     String @id @default(cuid()) @db.Uuid
-  userId String @map("user_id") @db.Uuid
-  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  id     String              @id @default(cuid()) @db.Uuid
+  userId String              @map("user_id") @db.Uuid
   name   String
   color  String
   icon   String
+  type   TransactionEnumType
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
 
   @@map(name: "categories")
 }
