@@ -1,8 +1,31 @@
 <div align="center">
   <h1>Finch - Personal finance control</h1>
 
-  ![finch-logo-animation](/assets/finch-logo-animation-ping-pong.gif)
+![finch-logo-animation](/assets/finch-logo-animation-ping-pong.gif)
+
 </div>
+
+## Tech stack
+
+</br>
+
+<div align="center">
+  <img src="https://skillicons.dev/icons?i=html,css,javascript,typescript,docker,git,prisma,nodejs,nestjs,react,vite,tailwindcss" width="415px" alt="Technologies" />
+</div>
+
+</br>
+
+- [**Backend:**](./backend/README.md) 
+  - [`Docker`](https://www.docker.com/) 
+  - [`Nest.js`](https://nestjs.com/) 
+  - [`Prisma ORM`](https://www.prisma.io/) 
+  - `PostgreSQL` 
+
+- **Frontend:**
+  - [`React`](https://react.dev/) 
+  - [`Radix Ui`](https://www.radix-ui.com/)
+  - [`React Query`](https://tanstack.com/) 
+  - [`Tailwind CSS`](https://tailwindcss.com/) 
 
 ## Branding
 
