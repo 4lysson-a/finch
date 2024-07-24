@@ -1,23 +1,17 @@
-<h1 align="center">
-  Finch - Personal finance control
+<div align="center">
+  <h1>Finch - Personal finance control</h1>
 
   ![finch-logo-animation](/assets/finch-logo-animation-ping-pong.gif)
-</h1>
+</div>
 
-# Branding
+## Branding
 
 ![finch-banner](/assets/finch-banner.png)
 
-Cansado das suas finanças em desordem?
-Chega de planilhas complicadas e aplicativos confusos! Com o Finch, você tem um lugar sem complicações para todas as suas finanças.
+😒 Tired of your finances being in ~~disorder~~?
 
-Organize suas contas, acompanhe seus gastos, crie orçamentos e alcance seus objetivos financeiros com mais facilidade do que nunca.
+⛓️‍💥 No more complicated spreadsheets and confusing apps!
 
-Baixe o Finch agora mesmo e:
+🤩 With **Finch**, you have one hassle-free place for all your finances.
 
-- Tenha uma visão completa de suas finanças em um só lugar.
-- Acompanhe seus gastos e categorize cada centavo.
-- Crie orçamentos realistas e acompanhe seu progresso.
-- Defina metas financeiras e acompanhe sua jornada.
-- Receba notificações sobre contas a pagar e transações importantes.
-- Proteja seus dados com segurança de alto nível.
+Organize your accounts, track your spending, create budgets and achieve your financial goals more easily than ever.
