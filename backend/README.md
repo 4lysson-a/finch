@@ -1,4 +1,4 @@
-![imagem](../docs/assets/erd.svg)
+![imagem](../assets/backend-erd.svg)
 
 ---
 
