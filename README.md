@@ -1,5 +1,5 @@
 > [!WARNING]  
-> 👷 Work in progress 👷.
+> 👷 Work in progress 👷
 
 ---
 
