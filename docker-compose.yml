@@ -1,24 +1,16 @@
-version: '3.1'
-
 services:
   backend:
-      container_name: finch-backend
-      build:
-        context: ./backend
-        dockerfile: Dockerfile
-      ports:
-        - "3000:3000"
-      volumes:
-        - ./backend:/app
-        - /app/node_modules
-      environment:
-        - NODE_ENV=production
-        - DB_HOST=db
-        - DB_PORT=5432
-        - DB_USER=root
-        - DB_PASSWORD=root
-        - DB_NAME=finch-db
-        - DATABASE_URL=postgres://root:root@db:5432/finch-db
+    container_name: finch-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
 
   db:
     image: postgres
