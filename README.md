@@ -1,3 +1,8 @@
+> [!WARNING]  
+> 👷 Work in progress 👷.
+
+---
+
 <div align="center">
   <h1>Finch - Personal finance control</h1>
 
