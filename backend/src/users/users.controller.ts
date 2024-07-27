@@ -8,12 +8,6 @@ export class UsersController {
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
-    const { email } = createUserDto;
-
-    if (!email) {
-      throw new BadRequestException('Email is required');
-    }
-
     return this.usersService.create(createUserDto);
   }
 
