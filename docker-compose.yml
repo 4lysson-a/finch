@@ -1,4 +1,11 @@
 services:
+  backend-deps:
+    image: node:lts
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    command: ["npm", "install"]
+
   backend:
     container_name: finch-backend
     build:
@@ -8,9 +15,10 @@ services:
       - "3000:3000"
     volumes:
       - ./backend:/app
-      - /app/node_modules
-    environment:
-      - NODE_ENV=development
+      - ./backend/node_modules:/app/node_modules
+    depends_on:
+      - db
+      - backend-deps
 
   db:
     image: postgres
@@ -19,9 +27,9 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
     ports:
-      - '5432:5432'
+      - "5432:5432"
     volumes:
       - ./database/postgres_data:/var/lib/postgresql/data
 
 volumes:
-  db_data:
+  postgres_data:
