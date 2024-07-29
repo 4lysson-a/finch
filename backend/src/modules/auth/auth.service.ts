@@ -1,31 +1,82 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { AuthDto } from './dto/auth.dto';
+import {
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UsersRepository } from 'src/shared/database/repositories/users.repositories';
-import { compare } from 'bcryptjs';
+import { compare, hash } from 'bcryptjs';
 import { JwtService } from '@nestjs/jwt';
+import { SignupDto } from './dto/signup.dto';
+import { SigninDto } from './dto/signin.dto';
 
 @Injectable()
 export class AuthService {
-    constructor(
-        private readonly usersRepo: UsersRepository,
-        private readonly jwtService: JwtService
-    ) { }
+  constructor(
+    private readonly usersRepo: UsersRepository,
+    private readonly jwtService: JwtService,
+  ) {}
 
-    async authenticate(authDto: AuthDto) {
-        const { email, password } = authDto;
+  async signup(signupDto: SignupDto) {
+    const { name, email, password } = signupDto;
 
-        const user = await this.usersRepo.findUnique({
-            where: { email },
-        });
+    const emailTaken = await this.usersRepo.findUnique({
+      where: { email },
+      select: { id: true },
+    });
 
-        const isPasswordValid = await compare(password, user.password);
-
-        if (!isPasswordValid) {
-            throw new UnauthorizedException('Invalid credentials');
-        }
-
-        const accessToken = await this.jwtService.signAsync({ sub: user });
-
-        return accessToken;
+    if (emailTaken) {
+      throw new ConflictException('Email already taken');
     }
+
+    const hashedPassword = await hash(password, 12);
+
+    const user = await this.usersRepo.create({
+      data: {
+        name,
+        email,
+        password: hashedPassword,
+        categories: {
+          createMany: {
+            data: [
+              { name: 'Salário', icon: 'salary', type: 'INCOME' },
+              { name: 'Freelance', icon: 'freelance', type: 'INCOME' },
+              { name: 'Outro', icon: 'other', type: 'INCOME' },
+              { name: 'Casa', icon: 'home', type: 'EXPENSE' },
+              { name: 'Alimentação', icon: 'food', type: 'EXPENSE' },
+              { name: 'Educação', icon: 'education', type: 'EXPENSE' },
+              { name: 'Lazer', icon: 'fun', type: 'EXPENSE' },
+              { name: 'Mercado', icon: 'grocery', type: 'EXPENSE' },
+              { name: 'Roupas', icon: 'clothes', type: 'EXPENSE' },
+              { name: 'Transporte', icon: 'transport', type: 'EXPENSE' },
+              { name: 'Viagem', icon: 'travel', type: 'EXPENSE' },
+              { name: 'Outro', icon: 'other', type: 'EXPENSE' },
+            ],
+          },
+        },
+      },
+    });
+
+    return {
+      name: user.name,
+      email: user.email,
+    };
+  }
+
+  async signin(signinDto: SigninDto) {
+    const { email, password } = signinDto;
+
+    const user = await this.usersRepo.findUnique({
+      where: { email },
+    });
+
+    const isPasswordValid = await compare(password, user.password);
+
+    if (!isPasswordValid) {
+      throw new UnauthorizedException('Invalid credentials');
+    }
+
+    const accessToken = await this.jwtService.signAsync({ sub: user });
+
+    return accessToken;
+  }
 }
