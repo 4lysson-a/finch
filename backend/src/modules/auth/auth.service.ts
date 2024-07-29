@@ -16,10 +16,6 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  private async generateAccessToken(userId: string) {
-    return this.jwtService.signAsync({ sub: userId });
-  }
-
   async signin(signinDto: SigninDto) {
     const { email, password } = signinDto;
 
@@ -79,5 +75,9 @@ export class AuthService {
 
     const accessToken = await this.generateAccessToken(user.id);
     return { accessToken };
+  }
+
+  private async generateAccessToken(userId: string) {
+    return this.jwtService.signAsync({ sub: userId });
   }
 }
