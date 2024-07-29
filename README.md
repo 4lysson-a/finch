@@ -40,7 +40,7 @@
     
     1.1 Follow steps 1 and 2 from the `backend` section.
 
-2. If you structuring the bank for the first time follow the steps below:
+2. If you structuring the database for the first time follow the steps below:
     
     - 2.1. Enter inside the backend container:
       ```bash
@@ -52,7 +52,7 @@
         npx prisma migrate dev
       ```
 
-    - 2.3. Check if the bank was structured correctly:
+    - 2.3. Check if the database was structured correctly:
     
         - 2.3.1. Run the following command to enter the database:
         
