@@ -14,4 +14,4 @@ import { envSettings } from 'src/shared/settings/env.settings';
   controllers: [AuthController],
   providers: [AuthService],
 })
-export class AuthModule { }
+export class AuthModule {}
