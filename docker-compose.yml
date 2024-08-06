@@ -1,5 +1,6 @@
 services:
   backend-deps:
+    container_name: finch-backend-deps
     image: node:lts
     working_dir: /app
     volumes:
